@@ -29,7 +29,7 @@ contract ShipYard is Ownable {
     mapping (address => uint) ownerShipCount;
 
 
-    function _createShip(string _name, uint _shipBuild, uint _shipLife, bool _shipShield) private {
+    function _createShip(string _name, uint _shipBuild, uint _shipLife, bool _shipShield) internal {
         uint id = armada.push(Ship(_name, _shipBuild, _shipLife, _shipShield)) - 1;
         shipToOwner[id] = msg.sender;
         ownerShipCount[msg.sender]++;
