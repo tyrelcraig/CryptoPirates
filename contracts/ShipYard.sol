@@ -7,8 +7,8 @@ contract ShipYard is Ownable {
     event NewShip (
         uint shipId, 
         string name,
-        uint shipBuild,
-        uint shipLife,
+        uint8 shipBuild,
+        uint8 shipLife,
         bool shipShield
         );
 
@@ -18,8 +18,8 @@ contract ShipYard is Ownable {
 
     struct Ship {
         string name;
-        uint shipBuild;
-        uint shipLife;
+        uint8 shipBuild;
+        uint8 shipLife;
         bool shipShield;
     }
 
@@ -29,27 +29,27 @@ contract ShipYard is Ownable {
     mapping (address => uint) ownerShipCount;
 
 
-    function _createShip(string _name, uint _shipBuild, uint _shipLife, bool _shipShield) internal {
+    function _createShip(string _name, uint8 _shipBuild, uint8 _shipLife, bool _shipShield) internal {
         uint id = armada.push(Ship(_name, _shipBuild, _shipLife, _shipShield)) - 1;
         shipToOwner[id] = msg.sender;
         ownerShipCount[msg.sender]++;
         NewShip (id, _name, _shipBuild, _shipLife, _shipShield);
     }
 
-    function _generateRandomShipBuild(string _str) private view returns (uint) {
-        uint rand = uint(keccak256(_str));
-        return rand % shipModulus;
+    function _generateRandomShipBuild(string _str) private view returns (uint8) {
+        uint rand = uint8(keccak256(_str));
+        return uint8(rand % shipModulus);
     }
 
-    function _generateRandomLife(string _str) private view returns (uint) {
+    function _generateRandomLife(string _str) private view returns (uint8) {
         uint rand = uint(keccak256(_str));
-        return rand % lifeModulus;
+        return uint8(rand % lifeModulus);
     }
 
     function createRandomShip(string _name) public {
         require(ownerShipCount[msg.sender] == 0);
-        uint randShipBuild = _generateRandomShipBuild(_name);
-        uint _shipLife = _generateRandomLife(_name);
+        uint8 randShipBuild = _generateRandomShipBuild(_name);
+        uint8 _shipLife = _generateRandomLife(_name);
         _createShip(_name, randShipBuild, _shipLife, false);
     }
 }
