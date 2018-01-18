@@ -9,4 +9,5 @@ Thoughts so far:
 - Strings are a newer contruct to Solidity and don't have many basic functions built-in.
 	- Concatenation
 	- String to Integer
-- 
+- Truffle comment lines causing errors. Making it hard to properly comment code.
+	- https://github.com/ethereum/solidity/issues/932
