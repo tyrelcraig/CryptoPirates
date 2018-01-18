@@ -21,6 +21,7 @@ contract ShipYard is Ownable {
         uint8 shipBuild;
         uint8 shipLife;
         bool shipShield;
+        uint8 level;
     }
 
     Ship[] public armada;
@@ -30,7 +31,7 @@ contract ShipYard is Ownable {
 
 
     function _createShip(string _name, uint8 _shipBuild, uint8 _shipLife, bool _shipShield) internal {
-        uint id = armada.push(Ship(_name, _shipBuild, _shipLife, _shipShield)) - 1;
+        uint id = armada.push(Ship(_name, _shipBuild, _shipLife, _shipShield, 0)) - 1;
         shipToOwner[id] = msg.sender;
         ownerShipCount[msg.sender]++;
         NewShip (id, _name, _shipBuild, _shipLife, _shipShield);
@@ -46,7 +47,7 @@ contract ShipYard is Ownable {
         return uint8(rand % lifeModulus);
     }
 
-    function createRandomShip(string _name) public {
+    function _createRandomShip(string _name) internal {
         require(ownerShipCount[msg.sender] == 0);
         uint8 randShipBuild = _generateRandomShipBuild(_name);
         uint8 _shipLife = _generateRandomLife(_name);

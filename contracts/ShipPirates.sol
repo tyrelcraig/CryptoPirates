@@ -32,7 +32,7 @@ function strayKitty(uint _shipId, uint _kittyId) public {
      string memory myShipName = myShip.name;
      string memory number = uint2str(ownerShipCount[msg.sender]);
      string memory name = strConcat(myShipName, number);
-     _createShip(name, _targetId, 1, false);
+     _createRandomShip(name);
  }
  
  // Helper Function: Convert Unsigned Integer to String. Return a String.
