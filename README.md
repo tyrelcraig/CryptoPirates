@@ -11,3 +11,5 @@ Thoughts so far:
 	- String to Integer
 - Truffle comment lines causing errors. Making it hard to properly comment code.
 	- https://github.com/ethereum/solidity/issues/932
+- To save on Gas
+	- Struct Packing. Ethereum reserves 256 bits for a uint. So within a struct, package into that space with smaller ints if possible.
